@@ -1,30 +1,31 @@
-import { useState } from "react";
-import answers from "./answers"
-import randomAnswerIdx from "./helper"
+import React, { useState } from 'react'
+import DEFAULT_ANSWERS from './answers.js'
+import randomAnswerIdx from './helper'
 
-function EightBall(){
-
-  const [answer, setAnswer] = useState({msg: 'Think of a Question', color: "black"});
-
-  function handleClick(evt){
-      setAnswer = answers[randomAnswerIdx];
+function EightBall ({ answers = DEFAULT_ANSWERS }) {
+  let initialAnswer = {
+    msg: 'Think of a Question',
+    color: 'black'
   }
 
+  const [answer, setAnswer] = useState(initialAnswer)
+  console.log(answers[0])
+  function handleClick (evt) {
+    setAnswer(answers[randomAnswerIdx()])
+  }
+
+  let color = answer.color
   const myStyle = {
-    backgroundColor: `${answer.color}`
+    backgroundColor: color,
+    height: '200px',
+    color: 'white'
   }
 
-  return(
+  return (
     <div onClick={handleClick} style={myStyle}>
-      <div>{answer.msg}
-      </div>
-
+      <div>{answer.msg}</div>
     </div>
-
   )
 }
-
-
-
 
 export default EightBall
